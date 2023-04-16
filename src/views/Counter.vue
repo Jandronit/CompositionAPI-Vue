@@ -1,22 +1,13 @@
 <script>
-import {defineComponent, ref} from "vue";
+import { defineComponent } from "vue";
+import useCounter from "@/composables/useCounter";
 export default defineComponent( {
     name: "Counter",
     props: {},
     emits: [],
     setup() {
-        const counter = ref(0);
-        // const increase = () => {
-        //     counter.value++;
-        // };
-        // const decrease = () => {
-        //     counter.value--;
-        // };
-        return {
-            counter,
-            increase: () => counter.value++, // increase,
-            decrease: () => counter.value--, // decrease,
-        };
+        const { counter, increase, decrease } = useCounter(25)
+        return { counter, increase, decrease };
     },
 });
 </script>
@@ -26,8 +17,3 @@ export default defineComponent( {
     <button @click="decrease">-1</button>
     <button @click="increase">+1</button>
 </template>
-
-
-<style>
-
-</style>
