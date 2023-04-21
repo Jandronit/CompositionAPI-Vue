@@ -11,7 +11,7 @@
 </template>
 
 <script>
-import {useRoute} from 'vue-router';
+import {useRoute, onBeforeRouteLeave} from 'vue-router';
 import usePokemon from '@/composables/usePokemon';
 import {watch, defineComponent} from 'vue';
 export default defineComponent( {
@@ -24,6 +24,18 @@ export default defineComponent( {
             () => route.params.id,
             () => searchPokemon(route.params.id)
         )
+
+        onBeforeRouteLeave((to, from, next) => {
+
+            const answer = window.confirm('Are you sure you want to leave?');
+
+            if (!answer) {
+                next(false);
+            } else {
+                next();
+            }
+        })
+
         return {
             pokemon,
             errorMessage,
