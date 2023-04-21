@@ -4,9 +4,8 @@
     <input
             type="text"
             placeholder="Search Pokemon"
-            autofocus
-            autocomplete="on"
             v-model="pokemonId"
+            ref="txtSearchId"
     >
   </form>
     <br>
@@ -14,15 +13,22 @@
 </template>
 
 <script>
-import {defineComponent, ref} from 'vue';
+import {defineComponent, ref, onActivated} from 'vue';
 import { useRouter } from 'vue-router';
 export default defineComponent({
     name: "SearchPokemon",
     setup() {
         const router = useRouter();
+
         const pokemonId = ref(1);
+        const txtSearchId = ref();
+
+        onActivated(() => {
+            txtSearchId.value.select();
+        });
         return {
             pokemonId,
+            txtSearchId,
             onSubmit: () => {
                 router.push({name: 'pokemon-id', params: {id: pokemonId.value}});
             }

@@ -3,8 +3,14 @@
 </template>
 
 <script>
+import {useRoute} from 'vue-router';
+
 export default {
-    name: "Pokemon"
+    name: "Pokemon",
+    data() {
+        const route = useRoute();
+        console.log(route.params);
+    },
 }
 </script>
 
