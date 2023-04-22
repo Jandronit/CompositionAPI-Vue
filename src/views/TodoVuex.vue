@@ -1,5 +1,6 @@
 <template>
 <h1>Thanos Todo List</h1>
+  <h4>Tasks: {{ $store.state.todos.length}}</h4>
 </template>
 
 <script>
