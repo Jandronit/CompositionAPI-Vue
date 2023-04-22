@@ -1,13 +1,19 @@
 <template>
 <h1>Thanos Todo List</h1>
-  <h4>Tasks: {{ $store.state.todos.length}}</h4>
+  <h4>Pending: {{ pending.length }}</h4>
 </template>
 
 <script>
-import {defineComponent} from 'vue';
-
+import {computed, defineComponent} from 'vue';
+import {useStore} from 'vuex';
 export default defineComponent({
-    name: "TodoVuex"
+    name: "TodoVuex",
+    data() {
+        const store = useStore();
+        return {
+            pending: computed(() => store.getters['pendingTodos'])
+        }
+    },
 })
 </script>
 
