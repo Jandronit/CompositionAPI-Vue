@@ -13,11 +13,9 @@ export default defineComponent({
 <template>
 <div class="modal-background fade-in">
     <div class="modal-container">
-
-        <div class="center">
-            <h1>Modal</h1>
-            <slot></slot>
-        </div>
+        <slot name="header"></slot>
+        <slot name="body"></slot>
+        <slot name="footer"></slot>
     </div>
 </div>
 </template>
