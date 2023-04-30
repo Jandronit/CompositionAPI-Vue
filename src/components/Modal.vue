@@ -2,6 +2,13 @@
 import { defineComponent } from 'vue';
 export default defineComponent({
     name: "Modal",
+    props: {
+        title: {
+            type: String,
+            required: true,
+        },
+    },
+    emits: ['on:close'],
     setup() {
         return {
 
@@ -11,7 +18,7 @@ export default defineComponent({
 </script>
 
 <template>
-<div class="modal-background fade-in">
+<div class="modal-background fade-in" @click.self="$emit('on:close')">
     <div class="modal-container">
         <slot name="header"></slot>
         <slot name="body"></slot>

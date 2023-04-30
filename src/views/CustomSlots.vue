@@ -1,5 +1,5 @@
 <script>
-import { defineComponent } from 'vue';
+import {defineComponent, ref} from 'vue';
 import Modal from "@/components/Modal.vue";
 export default defineComponent({
     name: "CustomSlots",
@@ -7,16 +7,19 @@ export default defineComponent({
         Modal,
     },
     setup() {
+        const isOpen = ref(false);
         return {
-
+            isOpen,
+            openModal: () => isOpen.value = true,
+            closeModal: () => isOpen.value = false,
         }
     },
 });
 </script>
 <template>
     <h1>Slots learning</h1>
-    <button>Open Modal</button>
-  <Modal>
+    <button @click="openModal">Open Modal</button>
+  <Modal v-if="isOpen" title="Hello World" @on:close="closeModal">
       <template #header>
           <h1>Header</h1>
       </template>
@@ -24,7 +27,7 @@ export default defineComponent({
           <p>Lorem ipsum dolor</p>
       </template>
       <template #footer>
-          <button>Close</button>
+          <button @click="closeModal">Close</button>
       </template>
   </Modal>
 </template>
