@@ -18,24 +18,18 @@
 </template>
 
 <script>
-import {computed, defineComponent, ref} from 'vue';
-import {useStore} from 'vuex';
+import { defineComponent } from 'vue';
+import useTodos from "@/composables/useTodos";
 export default defineComponent({
     name: "TodoVuex",
     setup() {
+        const { pending, currenTab, getTodosByTab, toggleTodo } = useTodos();
 
-        const store = useStore();
-        const currenTab = ref('all');
         return {
             currenTab,
-
-            pending: computed(() => store.getters['pendingTodos']),
-            allTodos: computed(() => store.getters['allTodos']),
-            completed: computed(() => store.getters['completedTodos']),
-
-            getTodosByTab: computed( () => store.getters['getTodosByTab'](currenTab.value) ),
-
-            toggleTodo: (id) => store.commit('toggleTodo', id),
+            pending,
+            getTodosByTab,
+            toggleTodo,
         }
     },
 })
