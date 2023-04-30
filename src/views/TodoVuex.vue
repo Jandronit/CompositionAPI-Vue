@@ -2,13 +2,13 @@
 <h1>Thanos Todo List</h1>
   <h4>Pending: {{ pending.length }}</h4>
   <hr>
-  <button class="active">All</button>
-  <button>Pending</button>
-  <button>Completed</button>
+  <button :class="{'active': currenTab === 'all' }" @click="currenTab = 'all'">All</button>
+  <button :class="{'active': currenTab === 'pending' }" @click="currenTab = 'pending'">Pending</button>
+  <button :class="{'active': currenTab === 'completed' }" @click="currenTab = 'completed'">Completed</button>
 
   <div>
     <ul>
-      <li v-for="todo in allTodos" :key="todo.id"
+      <li v-for="todo in getTodosByTab" :key="todo.id"
           :class="{'completed': todo.completed}">
         <input type="checkbox" v-model="todo.completed">
         {{ todo.text }}
@@ -18,16 +18,23 @@
 </template>
 
 <script>
-import {computed, defineComponent} from 'vue';
+import {computed, defineComponent, ref} from 'vue';
 import {useStore} from 'vuex';
 export default defineComponent({
     name: "TodoVuex",
-    data() {
+    setup() {
+
         const store = useStore();
+        const currenTab = ref('all');
+
         return {
+            currenTab,
+
             pending: computed(() => store.getters['pendingTodos']),
             allTodos: computed(() => store.getters['allTodos']),
             completed: computed(() => store.getters['completedTodos']),
+
+            getTodosByTab: computed( () => store.getters['getTodosByTab'](currenTab.value) ),
         }
     },
 })
