@@ -9,7 +9,7 @@
   <div>
     <ul>
       <li v-for="todo in getTodosByTab" :key="todo.id"
-          :class="{'completed': todo.completed}">
+          :class="{'completed': todo.completed}" @click="toggleTodo(todo.id)">
         <input type="checkbox" v-model="todo.completed">
         {{ todo.text }}
       </li>
@@ -26,7 +26,6 @@ export default defineComponent({
 
         const store = useStore();
         const currenTab = ref('all');
-
         return {
             currenTab,
 
@@ -35,6 +34,8 @@ export default defineComponent({
             completed: computed(() => store.getters['completedTodos']),
 
             getTodosByTab: computed( () => store.getters['getTodosByTab'](currenTab.value) ),
+
+            toggleTodo: (id) => store.commit('toggleTodo', id),
         }
     },
 })
