@@ -29,6 +29,10 @@ export default defineComponent({
       <template #footer>
           <button @click="closeModal">Close</button>
       </template>
+
+      <template #exposed="{newTitle}">
+          <h1>{{ newTitle }}</h1>
+      </template>
   </Modal>
 </template>
 <style scoped>

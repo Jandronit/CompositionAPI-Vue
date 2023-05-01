@@ -5,13 +5,13 @@ export default defineComponent({
     props: {
         title: {
             type: String,
-            required: true,
+            required: false,
         },
     },
     emits: ['on:close'],
-    setup() {
+    setup(props) {
         return {
-
+            newTitle: props.title?.toUpperCase(),
         }
     },
 })
@@ -23,6 +23,8 @@ export default defineComponent({
         <slot name="header"></slot>
         <slot name="body"></slot>
         <slot name="footer"></slot>
+
+        <slot name="exposed" :newTitle="newTitle"></slot>
     </div>
 </div>
 </template>
