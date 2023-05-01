@@ -17,6 +17,7 @@ const useTodos = () => {
 
         //Methods
         toggleTodo: (id) => store.commit('toggleTodo', id),
+        addTodo: (text) => store.commit('createNewTodo', text),
     }
 }
 export default useTodos

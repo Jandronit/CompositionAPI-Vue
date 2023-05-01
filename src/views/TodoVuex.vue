@@ -15,21 +15,45 @@
       </li>
     </ul>
   </div>
+
+  <button @click="openModal">Add Todo</button>
+
+  <modal v-if="isOpen" @on:close="closeModal">
+      <template #header>
+          <h1>New task</h1>
+      </template>
+      <template #body>
+          <form @submit.prevent="addTodo(newTodoText); isOpen=false; newTodoText=''">
+          <input type="text" v-model="newTodoText" placeholder="Add new todo">
+              <br>
+              <br>
+          <button type="submit">Add</button>
+          </form>
+      </template>
+  </modal>
 </template>
 
 <script>
-import { defineComponent } from 'vue';
+import {defineComponent, ref} from 'vue';
 import useTodos from "@/composables/useTodos";
+import Modal from '@/components/Modal.vue';
 export default defineComponent({
     name: "TodoVuex",
+    components: { Modal },
     setup() {
-        const { pending, currenTab, getTodosByTab, toggleTodo } = useTodos();
+        const { pending, currenTab, getTodosByTab, toggleTodo, addTodo } = useTodos();
+        const isOpen = ref(false);
 
         return {
             currenTab,
             pending,
             getTodosByTab,
+            addTodo,
             toggleTodo,
+            isOpen,
+            openModal: () => isOpen.value = true,
+            closeModal: () => isOpen.value = false,
+            newTodoText: ref(''),
         }
     },
 })
